@@ -1,22 +1,40 @@
-
-//write a lex program to count a number of words and number of line in a given file or program
-
+//write a yaac program to implement disk calculator without lex
 program:
 %{
-int wordcount = 0;
-int linecount = 0;
+#include<stdio.h>
+#include<ctype.h>
 %}
+%token DIGIT
+%%
+line:expr'ln' {printf("%d,$1;exit(0);}
+;
+expr:expr '+' term{$$=$1+$3;}
+|term
+;
+term:term '*' factor{$$ = $1*$3;}
+|factor
+;
+factor:'('expr')' {$$ = $2;}
+|DIGIT
+;
 
 %%
-ln {linecount++;}
-[\t] + {/*ignore whitespace*/}
-[^\t\n] + {wordcount++;}
-%%
-
+yylex()
+{
+int c;
+c = getchar();
+if(isdigit(0)
+{
+yylval=c-'0';
+return DIGIT;
+}
+return c;
+}
 void main()
 {
-printf("enter the text:\n");
-printf("number of lines:%d\n", linecount);
-printf("number of words: %d\n" , wordcount);
-return 0;
+yyparse();
+}
+void yyerror(char *s)
+{
+printf("%s", s);
 }
