@@ -1,4 +1,8 @@
+//write a c program to identify or implement brute force method for the following grammar
+S->cAd
+A->ab/a
 
+program:
 #include<stdio.h>
 
 char input[100];
